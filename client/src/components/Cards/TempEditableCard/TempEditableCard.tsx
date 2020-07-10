@@ -66,8 +66,20 @@ function TempEditableCard({ label, temperature, lastUpdateAt, limits, onChangeTe
       <div className="content-wrapper">
         <p className="temperature">{temp ? `${temp}C°` : '-'}</p>
         <div className="buttons-wrapper">
-          <ArrowUp className="button" onClick={handleIncrementTemp} width="40px" height="40px" />
-          <ArrowDown className="button" onClick={handleDecrmentTemp} width="40px" height="40px" />
+          <ArrowUp
+            className="button"
+            data-testid="increase-button"
+            onClick={handleIncrementTemp}
+            width="40px"
+            height="40px"
+          />
+          <ArrowDown
+            className="button"
+            data-testid="decrease-button"
+            onClick={handleDecrmentTemp}
+            width="40px"
+            height="40px"
+          />
         </div>
       </div>
 
