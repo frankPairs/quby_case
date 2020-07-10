@@ -22,6 +22,9 @@ const AppStyled = styled.main`
 `;
 
 const HeaderStyled = styled.header`
+  align-items: center;
+  justify-content: center;
+  display: flex;
   grid-area: header;
   box-sizing: border-box;
 
