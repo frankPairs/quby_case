@@ -5,7 +5,7 @@ import { useThermostat } from './hooks';
 import { AppStyled, ContentStyled } from './App.styled';
 
 function App() {
-  const { temperature, setpoint, lastUpdateAt } = useThermostat();
+  const [{ temperature, setpoint, lastUpdateAt }, updateSetpoint] = useThermostat();
 
   return (
     <AppStyled>
@@ -15,7 +15,7 @@ function App() {
           label="Set Point"
           temperature={setpoint}
           lastUpdateAt={lastUpdateAt}
-          onChangeTemp={(temp) => console.log(temp)}
+          onChangeTemp={updateSetpoint}
         />
       </ContentStyled>
     </AppStyled>

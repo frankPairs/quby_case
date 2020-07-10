@@ -2,28 +2,31 @@ import { useEffect, useState } from 'react';
 
 import { Thermostat } from '../types';
 import { createPoll } from '../utils/poll';
-import { getTemperature } from '../services';
+import { getTemperature, patchTemperature } from '../services';
 
-function useThermostat() {
+function useThermostat(): [Thermostat, (newTemp: number) => void] {
   const [tempData, setTemperature] = useState<Thermostat>({
     temperature: null,
     setpoint: null,
     lastUpdateAt: null,
   });
+  const poll = createPoll(async () => {
+    const data = await getTemperature(poll.restart);
+
+    setTemperature(data);
+  }, 2000);
 
   useEffect(function pollTemperature() {
-    const poll = createPoll(async () => {
-      const data = await getTemperature(poll.restart);
-
-      setTemperature(data);
-    }, 2000);
-
     poll.start();
 
     return poll.cancel;
   }, []);
 
-  return tempData;
+  function updateSetpoint(newTemp: number) {
+    patchTemperature(newTemp);
+  }
+
+  return [tempData, updateSetpoint];
 }
 
 export { useThermostat };

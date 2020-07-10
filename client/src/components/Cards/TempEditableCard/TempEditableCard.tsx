@@ -13,17 +13,21 @@ interface Props {
 }
 
 function TempEditableCard({ label, temperature, lastUpdateAt, onChangeTemp }: Props) {
-  const [temp, setTemp] = useState(0);
+  const [temp, setTemp] = useState<number | null>(null);
   const debounceChangeTemp = useCallback(debounce(onChangeTemp, 500), []);
 
   useEffect(() => {
-    if (temperature) {
+    if (temperature && !temp) {
       setTemp(temperature);
     }
   }, [temperature]);
 
   function handleIncrementTemp() {
     setTemp((prevTemp) => {
+      if (!prevTemp) {
+        return prevTemp;
+      }
+
       const nextTemp = prevTemp + 0.5;
 
       debounceChangeTemp(nextTemp);
@@ -33,6 +37,10 @@ function TempEditableCard({ label, temperature, lastUpdateAt, onChangeTemp }: Pr
 
   function handleDecrmentTemp() {
     setTemp((prevTemp) => {
+      if (!prevTemp) {
+        return prevTemp;
+      }
+
       const nextTemp = prevTemp - 0.5;
 
       debounceChangeTemp(nextTemp);
