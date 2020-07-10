@@ -42,7 +42,7 @@ function useThermostat(): [ThermostatState, (newTemp: number) => void] {
 
   async function getTemperatureRequest() {
     try {
-      const data = await getTemperature(poll.restart);
+      const data = await getTemperature({ onRetry: poll.restart });
       setData(data);
     } catch (err) {
       setError(err);

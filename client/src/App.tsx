@@ -15,6 +15,7 @@ function App() {
           label="Set Point"
           temperature={data.setpoint}
           lastUpdateAt={data.lastUpdateAt}
+          limits={{ min: 15, max: 25 }}
           onChangeTemp={updateSetpoint}
         />
       </ContentStyled>

@@ -9,10 +9,11 @@ interface Props {
   label: string;
   temperature: number | null;
   lastUpdateAt: Date | null;
+  limits: { min: number; max: number };
   onChangeTemp: (temp: number) => void;
 }
 
-function TempEditableCard({ label, temperature, lastUpdateAt, onChangeTemp }: Props) {
+function TempEditableCard({ label, temperature, lastUpdateAt, limits, onChangeTemp }: Props) {
   const [temp, setTemp] = useState<number | null>(null);
   const debounceChangeTemp = useCallback(debounce(onChangeTemp, 500), []);
 
@@ -33,6 +34,10 @@ function TempEditableCard({ label, temperature, lastUpdateAt, onChangeTemp }: Pr
 
       const nextTemp = prevTemp + 0.5;
 
+      if (nextTemp > limits.max) {
+        return prevTemp;
+      }
+
       debounceChangeTemp(nextTemp);
       return nextTemp;
     });
@@ -45,6 +50,10 @@ function TempEditableCard({ label, temperature, lastUpdateAt, onChangeTemp }: Pr
       }
 
       const nextTemp = prevTemp - 0.5;
+
+      if (nextTemp < limits.min) {
+        return prevTemp;
+      }
 
       debounceChangeTemp(nextTemp);
       return nextTemp;

@@ -1,9 +1,9 @@
 import retry from 'async-retry';
 
-import { ThermostatResponse } from '../types';
+import { ThermostatResponse, Thermostat } from '../types';
 import { api } from './api';
 
-async function getTemperature(onTemperatureRetry: () => void) {
+async function getTemperature({ onRetry }: { onRetry: () => void }) {
   return await retry(
     async () => {
       const res = await api.get<ThermostatResponse>('/');
@@ -12,17 +12,11 @@ async function getTemperature(onTemperatureRetry: () => void) {
         throw new Error('Data not found');
       }
 
-      return {
-        temperature: res.data.currentTemp,
-        setpoint: res.data.currentSetpoint,
-        lastUpdateAt: res.data.timestamp,
-      };
+      return parseThermostat(res.data);
     },
     {
       retries: 10,
-      onRetry: () => {
-        onTemperatureRetry();
-      },
+      onRetry,
       minTimeout: 100,
       maxTimeout: 500,
     },
@@ -31,6 +25,14 @@ async function getTemperature(onTemperatureRetry: () => void) {
 
 function patchTemperature(temp: number) {
   return api.patch('/', { currentSetpoint: temp });
+}
+
+function parseThermostat(thermostateRes: ThermostatResponse): Thermostat {
+  return {
+    temperature: thermostateRes.currentTemp,
+    setpoint: thermostateRes.currentSetpoint,
+    lastUpdateAt: thermostateRes.timestamp,
+  };
 }
 
 export { patchTemperature, getTemperature };
