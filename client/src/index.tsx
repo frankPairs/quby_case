@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 
+import { GlobalStyle } from './styles';
 import { App } from './App';
 
 function domLoaded(evt: Event) {
@@ -11,7 +12,13 @@ function domLoaded(evt: Event) {
     return;
   }
 
-  render(<App />, rootEl);
+  render(
+    <>
+      <GlobalStyle />
+      <App />
+    </>,
+    rootEl,
+  );
 }
 
 document.addEventListener('DOMContentLoaded', domLoaded);

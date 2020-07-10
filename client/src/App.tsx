@@ -1,18 +1,24 @@
 import React from 'react';
 
-import { TempCard } from './components';
+import { TempCard, TempEditableCard } from './components/Cards';
 import { useThermostat } from './hooks';
+import { AppStyled, ContentStyled } from './App.styled';
 
 function App() {
   const { temperature, setpoint, lastUpdateAt } = useThermostat();
 
   return (
-    <div>
-      <h1>Thermostat</h1>
-
-      <TempCard label="Current Temperature" temperature={temperature} lastUpdateAt={lastUpdateAt} />
-      <TempCard label="Set Point" temperature={setpoint} lastUpdateAt={lastUpdateAt} />
-    </div>
+    <AppStyled>
+      <ContentStyled>
+        <TempCard label="Current" temperature={temperature} lastUpdateAt={lastUpdateAt} />
+        <TempEditableCard
+          label="Set Point"
+          temperature={setpoint}
+          lastUpdateAt={lastUpdateAt}
+          onChangeTemp={(temp) => console.log(temp)}
+        />
+      </ContentStyled>
+    </AppStyled>
   );
 }
 
