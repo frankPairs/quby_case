@@ -15,6 +15,7 @@ const TempEditableCardStyled = styled(TempCardStyled)`
   }
 
   .button {
+    color: ${({ theme }) => theme.colors.secondary};
     cursor: pointer;
   }
 `;

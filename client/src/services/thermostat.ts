@@ -9,7 +9,7 @@ async function getTemperature({ onRetry }: { onRetry: () => void }) {
       const res = await api.get<ThermostatResponse>('/');
 
       if (202 === res.status) {
-        throw new Error('Data not found');
+        throw new Error('Thermostat data not found');
       }
 
       return parseThermostat(res.data);

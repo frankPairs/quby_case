@@ -5,7 +5,6 @@
   "author": "Steven Straatemans <steven@straatemans.nl>",
   "main": "build/index.js",
   "scripts": {
-    "startclient": "cd client && npm install && npm start",
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
     "dev": "set debug=* && ts-node-dev --respawn --transpileOnly ./server/index.ts --r dotenv/config",

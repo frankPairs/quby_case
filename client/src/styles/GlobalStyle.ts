@@ -158,6 +158,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   #root {
+    box-sizing: border-box;
+    width: 100%;
     height: 100%;
   }
 `;
