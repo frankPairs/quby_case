@@ -5,16 +5,16 @@ import { useThermostat } from './hooks';
 import { AppStyled, ContentStyled } from './App.styled';
 
 function App() {
-  const [{ temperature, setpoint, lastUpdateAt }, updateSetpoint] = useThermostat();
+  const [{ data }, updateSetpoint] = useThermostat();
 
   return (
     <AppStyled>
       <ContentStyled>
-        <TempCard label="Current" temperature={temperature} lastUpdateAt={lastUpdateAt} />
+        <TempCard label="Current" temperature={data.temperature} lastUpdateAt={data.lastUpdateAt} />
         <TempEditableCard
           label="Set Point"
-          temperature={setpoint}
-          lastUpdateAt={lastUpdateAt}
+          temperature={data.setpoint}
+          lastUpdateAt={data.lastUpdateAt}
           onChangeTemp={updateSetpoint}
         />
       </ContentStyled>

@@ -16,11 +16,14 @@ function TempEditableCard({ label, temperature, lastUpdateAt, onChangeTemp }: Pr
   const [temp, setTemp] = useState<number | null>(null);
   const debounceChangeTemp = useCallback(debounce(onChangeTemp, 500), []);
 
-  useEffect(() => {
-    if (temperature && !temp) {
-      setTemp(temperature);
-    }
-  }, [temperature]);
+  useEffect(
+    function initTempState() {
+      if (temperature && !temp) {
+        setTemp(temperature);
+      }
+    },
+    [temperature],
+  );
 
   function handleIncrementTemp() {
     setTemp((prevTemp) => {
