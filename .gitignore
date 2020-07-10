@@ -1,5 +1,6 @@
 .DS_Store
 node_modules
+public
 dist/bundle.js
 build
 /build
@@ -13,4 +14,3 @@ yarn-debug.log*
 yarn-error.log*
 
 client/.cache
-client/public

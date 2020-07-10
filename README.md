@@ -46,3 +46,29 @@ The only requirement we have is that you use React, other than that you can do w
 the client website will start at http://localhost:1234
 
 Good luck and we are looking forward to see the results.
+
+### Scripts
+
+Install dependencies:
+
+```
+npm i && npm run bootstrap
+```
+
+Run development environment:
+
+```
+npm run dev
+```
+
+Run production environment:
+
+```
+npm run start
+```
+
+Run test environment:
+
+```
+npm run test
+```
