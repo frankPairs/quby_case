@@ -46,20 +46,14 @@ function useThermostat(): UseThermostatReturn {
   }
 
   async function getTemperatureRequest() {
-    const data = await getTemperature(
-      {
-        onRetry: poll.restart,
-      },
-      {
-        cancelToken: new CancelToken((c) => dispatch(setGetTemperatureCanceler(c))),
-      },
-    );
+    const data = await getTemperature({
+      cancelToken: new CancelToken((c) => dispatch(setGetTemperatureCanceler(c))),
+    });
 
     dispatch(setDataAction(data));
   }
 
   async function updateSetpointRequest(newTemp: number) {
-    poll.cancel();
     await patchTemperature(newTemp, {
       cancelToken: new CancelToken((c) => dispatch(setUpdateSetpointCanceler(c))),
     });

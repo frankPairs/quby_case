@@ -4,7 +4,7 @@ import { AxiosRequestConfig } from 'axios';
 import { ThermostatResponse, Thermostat } from '../types';
 import { api } from './api';
 
-async function getTemperature({ onRetry }: { onRetry: () => void }, config?: AxiosRequestConfig) {
+async function getTemperature(config?: AxiosRequestConfig) {
   return await retry(
     async () => {
       const res = await api.get<ThermostatResponse>('/', config);
@@ -17,7 +17,6 @@ async function getTemperature({ onRetry }: { onRetry: () => void }, config?: Axi
     },
     {
       retries: 10,
-      onRetry,
       minTimeout: 100,
       maxTimeout: 500,
     },
