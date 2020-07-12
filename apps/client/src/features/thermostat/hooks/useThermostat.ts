@@ -40,7 +40,6 @@ function useThermostat(): UseThermostatReturn {
   }
 
   function cancelRequests() {
-    poll.cancel();
     cancelGetTempRequest();
     cancelUpdateSetpointRequest();
   }
@@ -54,6 +53,7 @@ function useThermostat(): UseThermostatReturn {
   }
 
   async function updateSetpointRequest(newTemp: number) {
+    poll.cancel();
     await patchTemperature(newTemp, {
       cancelToken: new CancelToken((c) => dispatch(setUpdateSetpointCanceler(c))),
     });
