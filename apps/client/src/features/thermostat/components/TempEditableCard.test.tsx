@@ -12,6 +12,8 @@ function getWrapper(overrideProps?: Partial<ComponentProps<typeof TempEditableCa
         temperature={10.5}
         lastUpdateAt={new Date()}
         limits={{ min: 15, max: 20 }}
+        onIncreaseTemp={jest.fn()}
+        onDecreaseTemp={jest.fn()}
         onChangeTemp={jest.fn()}
         {...overrideProps}
       />

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import dayjs from 'dayjs';
 import debounce from 'lodash/debounce';
 
-import { ArrowDown, ArrowUp } from '../../Icons';
+import { ArrowDown, ArrowUp } from '../../../components/Icons';
 import { TempEditableCardStyled } from './TempEditableCard.styled';
 
 interface Props {
@@ -11,17 +11,25 @@ interface Props {
   lastUpdateAt: Date | null;
   limits: { min: number; max: number };
   onChangeTemp: (temp: number) => void;
+  onDecreaseTemp: () => void;
+  onIncreaseTemp: () => void;
 }
 
-function TempEditableCard({ label, temperature, lastUpdateAt, limits, onChangeTemp }: Props) {
+function TempEditableCard({
+  label,
+  temperature,
+  lastUpdateAt,
+  limits,
+  onChangeTemp,
+  onDecreaseTemp,
+  onIncreaseTemp,
+}: Props) {
   const [temp, setTemp] = useState<number | null>(null);
   const debounceChangeTemp = useCallback(debounce(onChangeTemp, 500), []);
 
   useEffect(
     function initTempState() {
-      if (temperature && !temp) {
-        setTemp(temperature);
-      }
+      setTemp(temperature);
     },
     [temperature],
   );
@@ -38,6 +46,7 @@ function TempEditableCard({ label, temperature, lastUpdateAt, limits, onChangeTe
         return prevTemp;
       }
 
+      onIncreaseTemp();
       debounceChangeTemp(nextTemp);
       return nextTemp;
     });
@@ -55,6 +64,7 @@ function TempEditableCard({ label, temperature, lastUpdateAt, limits, onChangeTe
         return prevTemp;
       }
 
+      onDecreaseTemp();
       debounceChangeTemp(nextTemp);
       return nextTemp;
     });

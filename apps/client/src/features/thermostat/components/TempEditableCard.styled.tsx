@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { TempCardStyled } from '../TempCard/TempCard.styled';
+import { TempCardStyled } from './TempCard.styled';
 
 const TempEditableCardStyled = styled(TempCardStyled)`
   .content-wrapper {

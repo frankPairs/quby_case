@@ -11,6 +11,7 @@
   "author": "Frank Parejo",
   "license": "ISC",
   "dependencies": {
+    "immer": "^7.0.5",
     "lerna": "^3.18.4"
   }
 }

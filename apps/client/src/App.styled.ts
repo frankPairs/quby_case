@@ -39,14 +39,7 @@ const HeaderStyled = styled.header`
 
 const ContentStyled = styled.div`
   box-sizing: border-box;
-  align-items: center;
-  display: flex;
-  justify-content: center;
   grid-area: content;
-
-  @media only screen and (max-width: ${({ theme }) => theme.media.desktopSmall}) {
-    flex-direction: column;
-  }
 `;
 
 export { AppStyled, ContentStyled, HeaderStyled };
